@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Playlist Maker</string>
+    <string name="search_button">Search</string>
+    <string name="title_hello">Hello, Practicum</string>
+    <string name="mediateka_button">Media</string>
+    <string name="settings_button">Settings</string>
+</resources>
