@@ -6,51 +6,58 @@
     android:orientation="vertical"
     android:background="@color/lightActivityBackground">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Playlist maker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/playlist_maker"
+        android:textSize="22dp"
+        android:layout_margin="10dp"
         android:textColor="@color/white">
     </TextView>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        app:icon="@drawable/search"
+        app:iconTint="@color/black"
         android:backgroundTint="@color/white"
         android:text="@string/search_button"
-        android:textColor="@color/black">
+        app:iconGravity="textStart"
+        android:textColor="@color/black"
+        app:cornerRadius="20dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
     </Button>
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:icon="@drawable/search"
-        app:iconTint="@color/black">
-    </ImageView>
-    </FrameLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_margin="10dp"
         android:layout_weight="1"
+        app:icon="@drawable/mediateka"
+        app:iconTint="@color/black"
+        app:iconGravity="textStart"
         android:backgroundTint="@color/white"
         android:text="@string/mediateka_button"
-        android:textColor="@color/black">
+        android:textColor="@color/black"
+        app:cornerRadius="20dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
     </Button>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_margin="10dp"
         android:layout_weight="1"
+        app:icon="@drawable/settings"
+        app:iconTint="@color/black"
         android:backgroundTint="@color/white"
         android:text="@string/settings_button"
-        android:textColor="@color/black">
+        app:iconGravity="textStart"
+        android:textColor="@color/black"
+        app:cornerRadius="20dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
     </Button>
-    
+
 </LinearLayout>
