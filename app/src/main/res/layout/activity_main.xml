@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="@string/playlist_maker"
+        android:text="@string/app_name"
         android:textSize="22dp"
         android:layout_margin="10dp"
         android:textColor="@color/white">
@@ -23,9 +23,10 @@
         app:icon="@drawable/search"
         app:iconTint="@color/black"
         android:backgroundTint="@color/white"
-        android:text="@string/search_button"
+        android:text="@string/search"
         app:iconGravity="textStart"
         android:textColor="@color/black"
+        android:textSize="22dp"
         app:cornerRadius="20dp"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
     </Button>
@@ -39,7 +40,8 @@
         app:iconTint="@color/black"
         app:iconGravity="textStart"
         android:backgroundTint="@color/white"
-        android:text="@string/mediateka_button"
+        android:text="@string/mediateka"
+        android:textSize="22dp"
         android:textColor="@color/black"
         app:cornerRadius="20dp"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
@@ -53,8 +55,9 @@
         app:icon="@drawable/settings"
         app:iconTint="@color/black"
         android:backgroundTint="@color/white"
-        android:text="@string/settings_button"
+        android:text="@string/settings"
         app:iconGravity="textStart"
+        android:textSize="22dp"
         android:textColor="@color/black"
         app:cornerRadius="20dp"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
