@@ -36,6 +36,12 @@
         android:layout_margin="10dp"
         android:textColor="@color/black">
     </TextView>
+
+    <View
+     android:layout_width="0dp"
+     android:layout_height="0dp"
+     android:layout_weight="1" />
+
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,10 +50,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:layout_margin="10sp">
+        android:layout_margin="10sp"
+        android:orientation="horizontal">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,32 +64,47 @@
         android:layout_margin="10dp"
         android:textColor="@color/black">
     </TextView>
+
+    <View
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_weight="1" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|start"
-        android:src="@drawable/search"></ImageButton>
+        android:src="@drawable/share"
+        android:gravity="right"
+        android:background="@null"
+        android:layout_margin="10dp"></ImageButton>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:layout_margin = "10sp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:text="@string/app_support"
         android:textSize="16dp"
         android:layout_margin="10dp"
         android:textColor="@color/black">
     </TextView>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/search"></ImageButton>
+
+    <View
+     android:layout_width="0dp"
+     android:layout_height="0dp"
+     android:layout_weight="1" />
+
+     <ImageButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/support"
+      android:gravity="right"
+      android:background="@null"
+      android:layout_margin="10dp"></ImageButton>
     </LinearLayout>
 
     <LinearLayout
@@ -99,11 +121,18 @@
         android:layout_margin="10dp"
         android:textColor="@color/black">
     </TextView>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/search"></ImageButton>
+        android:src="@drawable/forward"
+        android:background="@null"
+        android:layout_margin="10dp"></ImageButton>
     </LinearLayout>
 
 </LinearLayout>
