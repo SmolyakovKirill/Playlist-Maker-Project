@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="margin">12sp</dimen>
+    <dimen name="textSize">24sp</dimen>
+    <dimen name="cornerRadius">20sp</dimen>
 </resources>
