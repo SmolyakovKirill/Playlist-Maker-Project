@@ -5,58 +5,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/lightActivityBackground">
-    <TextView
+    <TextView style="@style/MessageTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_weight="0"
-        android:text="@string/app_name"
-        android:textSize="@dimen/textSize"
-        android:layout_margin="@dimen/margin"
-        android:textColor="@color/white">
+        android:text="@string/app_name">
     </TextView>
 
     <Button style="@style/ButtonStyle"
         android:id="@+id/search_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin"
-        android:layout_weight="1"
         app:icon="@drawable/search"
-        app:iconTint="@color/black"
-        android:backgroundTint="@color/white"
         android:text="@string/search"
+        app:iconTint="@color/black"
         app:iconGravity="textStart"
         app:cornerRadius="@dimen/cornerRadius">
     </Button>
 
     <Button style="@style/ButtonStyle"
         android:id="@+id/mediateka_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin"
-        android:layout_weight="1"
         app:icon="@drawable/mediateka"
         app:iconTint="@color/black"
         app:iconGravity="textStart"
-        android:backgroundTint="@color/white"
         android:text="@string/mediateka"
         app:cornerRadius="@dimen/cornerRadius">
     </Button>
 
     <Button style="@style/ButtonStyle"
         android:id="@+id/settings_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin"
-        android:layout_weight="1"
         app:icon="@drawable/settings"
         app:iconTint="@color/black"
-        android:backgroundTint="@color/white"
         android:text="@string/settings"
         app:iconGravity="textStart"
-        android:textSize="@dimen/textSize"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
         app:cornerRadius="@dimen/cornerRadius">
     </Button>
 
