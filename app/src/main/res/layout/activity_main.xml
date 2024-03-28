@@ -15,7 +15,7 @@
         android:textColor="@color/white">
     </TextView>
 
-    <Button
+    <Button style="@style/ButtonStyle"
         android:id="@+id/search_btn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,14 +26,10 @@
         android:backgroundTint="@color/white"
         android:text="@string/search"
         app:iconGravity="textStart"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textSize"
-        android:textAllCaps="false"
-        app:cornerRadius="@dimen/cornerRadius"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        app:cornerRadius="@dimen/cornerRadius">
     </Button>
 
-    <Button
+    <Button style="@style/ButtonStyle"
         android:id="@+id/mediateka_btn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -44,14 +40,10 @@
         app:iconGravity="textStart"
         android:backgroundTint="@color/white"
         android:text="@string/mediateka"
-        android:textSize="@dimen/textSize"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:cornerRadius="@dimen/cornerRadius"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        app:cornerRadius="@dimen/cornerRadius">
     </Button>
 
-    <Button
+    <Button style="@style/ButtonStyle"
         android:id="@+id/settings_btn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -65,8 +57,7 @@
         android:textSize="@dimen/textSize"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:cornerRadius="@dimen/cornerRadius"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        app:cornerRadius="@dimen/cornerRadius">
     </Button>
 
 </LinearLayout>
