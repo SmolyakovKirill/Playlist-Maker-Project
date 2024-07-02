@@ -64,9 +64,11 @@
       android:layout_height="0dp"
       android:layout_weight="1" />
 
-    <ImageButton style="@style/ImageButtonStyle"
-        android:src="@drawable/share"
-        android:gravity="right"></ImageButton>
+        <ImageButton
+            android:id="@+id/share_btn"
+            style="@style/ImageButtonStyle"
+            android:gravity="right"
+            android:src="@drawable/share"></ImageButton>
     </LinearLayout>
 
     <LinearLayout
