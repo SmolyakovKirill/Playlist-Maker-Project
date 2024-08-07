@@ -87,11 +87,9 @@
      android:layout_height="0dp"
      android:layout_weight="1" />
 
-        <ImageButton
-            android:id="@+id/support_btn"
-            style="@style/ImageButtonStyle"
-            android:gravity="right"
-            android:src="@drawable/support"></ImageButton>
+     <ImageButton style="@style/ImageButtonStyle"
+      android:src="@drawable/support"
+      android:gravity="right"></ImageButton>
     </LinearLayout>
 
     <LinearLayout
@@ -111,10 +109,8 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-        <ImageButton
-            android:id="@+id/term_of_use_btn"
-            style="@style/ImageButtonStyle"
-            android:src="@drawable/forward"></ImageButton>
+    <ImageButton style="@style/ImageButtonStyle"
+        android:src="@drawable/forward"></ImageButton>
     </LinearLayout>
 
 </LinearLayout>
