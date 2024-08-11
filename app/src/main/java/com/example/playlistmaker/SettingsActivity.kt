@@ -19,19 +19,19 @@ class SettingsActivity : AppCompatActivity() {
         val shareClickListener: View.OnClickListener = View.OnClickListener {
             val shareData = Intent(Intent.ACTION_SEND)
             shareData.type = "text/plain"
-            val dataToShare = "https://practicum.yandex.ru/profile/android-developer/"
-            shareData.putExtra(Intent.EXTRA_SUBJECT, "Link to YP lessons")
+            val dataToShare = this.getString(R.string.practicum_url)
+            shareData.putExtra(Intent.EXTRA_SUBJECT,  this.getString(R.string.share_subject))
             shareData.putExtra(Intent.EXTRA_TEXT, dataToShare)
-            startActivity(Intent.createChooser(shareData, "Share Link"))
+            startActivity(Intent.createChooser(shareData,  this.getString(R.string.share_intent_title)))
         }
         shareButton.setOnClickListener(shareClickListener)
 
         val supportButton = findViewById<ImageButton>(R.id.support_btn)
 
         val supportClickListener: View.OnClickListener = View.OnClickListener {
-            val emailSend = "smolyakov.kirusha@gmail.com"
-            val emailSubject = "Сообщение разработчикам и разработчицам приложения Playlist Maker"
-            val emailBody = "Спасибо разработчикам и разработчицам за крутое приложение!"
+            val emailSend = this.getString(R.string.support_email)
+            val emailSubject = this.getString(R.string.support_email_subject)
+            val emailBody = this.getString(R.string.support_email_body)
 
             val intent = Intent(Intent.ACTION_SEND)
 
@@ -41,14 +41,14 @@ class SettingsActivity : AppCompatActivity() {
 
             intent.type = "message/rfc822"
 
-            startActivity(Intent.createChooser(intent, "Email to developer"))
+            startActivity(Intent.createChooser(intent, this.getString(R.string.email_intent_title)))
         }
         supportButton.setOnClickListener(supportClickListener)
 
         val termsOfUse = findViewById<ImageButton>(R.id.term_of_use_btn)
 
         val termsOfUseListener: View.OnClickListener = View.OnClickListener {
-            val url = "https://yandex.ru/legal/practicum_offer/"
+            val url = this.getString(R.string.agreement_url)
             val urlIntent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(url)
@@ -60,9 +60,12 @@ class SettingsActivity : AppCompatActivity() {
         val backButton = findViewById<ImageButton>(R.id.back_btn)
 
         backButton.setOnClickListener{
-            val mainIntent = Intent(this, MainActivity::class.java)
-            startActivity(mainIntent)
+            onBackPressed()
         }
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish() // Завершаем текущее Activity
     }
 }

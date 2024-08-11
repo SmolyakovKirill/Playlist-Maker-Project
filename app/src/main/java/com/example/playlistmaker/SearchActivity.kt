@@ -1,23 +1,20 @@
 package com.example.playlistmaker
 
-import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Button
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.PackageManagerCompat.LOG_TAG
-import com.example.playlistmaker.SearchActivity.Companion.AMOUNT_DEF
 
-
-var countValue: String = ""
 
 class SearchActivity : AppCompatActivity() {
+
+    private var countValue: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -45,11 +42,16 @@ class SearchActivity : AppCompatActivity() {
 
         clearButton.setOnClickListener{
             inputEditText.setText("")
+
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(
+                clearButton.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
 
         backButton.setOnClickListener{
-            val mainIntent = Intent(this, MainActivity::class.java)
-            startActivity(mainIntent)
+            onBackPressed()
         }
     }
 
@@ -66,7 +68,6 @@ class SearchActivity : AppCompatActivity() {
 
         val inputEditText = findViewById<EditText>(R.id.searchEditText)
         inputEditText.setText(countValue)
-        Log.d(TAG, countValue)
     }
 
     companion object {
@@ -82,4 +83,8 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish() // Завершаем текущее Activity
+    }
 }
