@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin">12sp</dimen>
-    <dimen name="textSize">24sp</dimen>
+    <dimen name="textViewTextSize">16sp</dimen>
+    <dimen name="buttonTextSize">22sp</dimen>
     <dimen name="cornerRadius">20sp</dimen>
+    <integer name="buttonTextWeight">500</integer>
+    <integer name="textViewTextWeight">400</integer>
 </resources>

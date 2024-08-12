@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val search = findViewById<Button>(R.id.search_btn)
 
         val searchClickListener: View.OnClickListener = View.OnClickListener {
-            val shareIntent = Intent(this, ShareActivity::class.java)
+            val shareIntent = Intent(this, SearchActivity::class.java)
             startActivity(shareIntent)
         }
 
