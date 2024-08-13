@@ -9,6 +9,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 class SearchActivity : AppCompatActivity() {
@@ -23,6 +25,26 @@ class SearchActivity : AppCompatActivity() {
         val clearButton = findViewById<ImageButton>(R.id.clear_btn)
         val backButton = findViewById<ImageButton>(R.id.back_btn)
 
+        val trackList: MutableList<Track> = ArrayList()
+
+        val nirvanaTrack: Track = Track()
+        val jacksonTrack: Track = Track()
+        val beeTrack: Track = Track()
+        val zeppelinTrack: Track = Track()
+        val gunsTrack: Track = Track()
+
+        trackList.add(nirvanaTrack)
+        trackList.add(jacksonTrack)
+        trackList.add(beeTrack)
+        trackList.add(zeppelinTrack)
+        trackList.add(gunsTrack)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val trackAdapter = TrackAdapter(trackList)
+        recyclerView.adapter = trackAdapter
+
         val clearButtonWatcher = object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //empty
@@ -30,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 clearButton.visibility = clearButtonVisibility(p0)
-
+                recyclerView.visibility = clearButtonVisibility(p0)
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -61,7 +83,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        val TAG = this.javaClass.simpleName
         super.onRestoreInstanceState(savedInstanceState)
         // Вторым параметром мы передаём значение по умолчанию
         countValue = savedInstanceState.getString(PRODUCT_AMOUNT, AMOUNT_DEF)
