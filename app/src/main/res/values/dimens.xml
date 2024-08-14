@@ -6,4 +6,5 @@
     <dimen name="cornerRadius">20sp</dimen>
     <integer name="buttonTextWeight">500</integer>
     <integer name="textViewTextWeight">400</integer>
+    <dimen name="trackIconSize">45sp</dimen>
 </resources>

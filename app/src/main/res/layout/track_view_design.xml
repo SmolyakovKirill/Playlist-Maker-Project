@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/trackIcon"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="@dimen/trackIconSize"
+        android:layout_height="@dimen/trackIconSize"
         android:gravity="start|center" />
 
     <LinearLayout
