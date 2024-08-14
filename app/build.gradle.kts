@@ -36,8 +36,13 @@ android {
 }
 
 dependencies {
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
     implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("com.google.android.material:material:1.6.1")
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
