@@ -22,8 +22,8 @@
         <TextView
             style="@style/MessageTextStyle"
             android:fontFamily="@font/ys_display_medium"
-            android:textSize="16sp"
-            android:layout_margin="0dp"
+            android:textSize="@dimen/trackNameSize"
+            android:layout_margin="@dimen/trackMargin"
             android:id="@+id/sourceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,8 +37,9 @@
             <TextView
                 style="@style/MessageTextStyle"
                 android:fontFamily="@font/ys_display_medium"
-                android:textSize="11sp"
-                android:layout_margin="0dp"
+                android:textSize="@dimen/trackDescriptionTextSize"
+                android:layout_margin="@dimen/trackMargin"
+                android:textColor="@color/grey"
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -51,8 +52,9 @@
             <TextView
                 style="@style/MessageTextStyle"
                 android:fontFamily="@font/ys_display_medium"
-                android:layout_margin="0dp"
-                android:textSize="11sp"
+                android:layout_margin="@dimen/trackMargin"
+                android:textSize="@dimen/trackDescriptionTextSize"
+                android:textColor="@color/grey"
                 android:id="@+id/trackTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

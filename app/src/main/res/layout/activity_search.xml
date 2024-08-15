@@ -40,6 +40,7 @@
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_gravity="left|center"
+            android:background="@android:color/transparent"
             android:drawablePadding="10sp"
             android:hint="@string/search"
             android:maxLines="1"
@@ -47,12 +48,11 @@
 
         <ImageButton
             android:id="@+id/clear_btn"
-            style="@style/ImageButtonStyle"
+            style="@style/DeleteImageButtonStyle"
             android:layout_gravity="right|center"
             android:layout_margin="10dp"
             android:src="@drawable/clear_btn"
-            android:visibility="invisible"
-            app:tint="@color/black" />
+            android:visibility="invisible"/>
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView

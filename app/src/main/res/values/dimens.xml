@@ -7,4 +7,7 @@
     <integer name="buttonTextWeight">500</integer>
     <integer name="textViewTextWeight">400</integer>
     <dimen name="trackIconSize">45sp</dimen>
+    <dimen name="trackNameSize">16sp</dimen>
+    <dimen name="trackMargin">0dp</dimen>
+    <dimen name="trackDescriptionTextSize">11sp</dimen>
 </resources>
