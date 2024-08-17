@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10sp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/trackIcon"
+        android:layout_width="@dimen/trackIconSize"
+        android:layout_height="@dimen/trackIconSize"
+        android:gravity="start|center" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+        <TextView
+            style="@style/MessageTextStyle"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="@dimen/trackNameSize"
+            android:layout_margin="@dimen/trackMargin"
+            android:id="@+id/sourceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end|center"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/MessageTextStyle"
+                android:fontFamily="@font/ys_display_medium"
+                android:textSize="@dimen/trackDescriptionTextSize"
+                android:layout_margin="@dimen/trackMargin"
+                android:textColor="@color/grey"
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/circle"
+                android:paddingBottom="0dp"
+                android:layout_margin="3dp"/>
+            <TextView
+                style="@style/MessageTextStyle"
+                android:fontFamily="@font/ys_display_medium"
+                android:layout_margin="@dimen/trackMargin"
+                android:textSize="@dimen/trackDescriptionTextSize"
+                android:textColor="@color/grey"
+                android:id="@+id/trackTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/track_btn"
+        style="@style/ImageButtonStyle"
+        android:gravity=""
+        android:src="@drawable/forward"></ImageButton>
+
+</LinearLayout>

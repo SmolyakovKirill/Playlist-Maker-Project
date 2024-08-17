@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,43 +16,50 @@
             android:layout_gravity="center"
             android:src="@drawable/back_button"></ImageButton>
 
-        <TextView style="@style/MessageTextStyle"
-        android:drawablePadding="40dp"
-        android:textSize="@dimen/buttonTextSize"
-        android:layout_weight="0"
-        android:textFontWeight="500"
-        android:text="@string/search"
-        android:layout_margin="20dp"
-        android:fontFamily="@font/ys_display_medium">
-    </TextView>
+        <TextView
+            style="@style/MessageTextStyle"
+            android:layout_margin="20dp"
+            android:layout_weight="0"
+            android:drawablePadding="40dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/search"
+            android:textFontWeight="500"
+            android:textSize="@dimen/buttonTextSize"></TextView>
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:layout_margin="10sp"
-        android:orientation="horizontal"
-        android:background="@drawable/layout_bg">
+        android:layout_weight="0"
+        android:background="@drawable/layout_bg"
+        android:orientation="horizontal">
 
         <EditText
-            style="@style/EditTextStyle"
             android:id="@+id/searchEditText"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
+            android:layout_gravity="left|center"
+            android:background="@android:color/transparent"
+            android:drawablePadding="10sp"
             android:hint="@string/search"
             android:maxLines="1"
-            app:drawableLeftCompat="@drawable/search"
-            android:layout_gravity="left|center"
-            android:drawablePadding = "10sp"></EditText>
+            app:drawableLeftCompat="@drawable/search"></EditText>
 
         <ImageButton
             android:id="@+id/clear_btn"
-            style="@style/ImageButtonStyle"
+            style="@style/DeleteImageButtonStyle"
             android:layout_gravity="right|center"
-            android:src="@drawable/clear_btn"
             android:layout_margin="10dp"
-            android:visibility="invisible"
-            app:tint="@color/black"></ImageButton>
+            android:src="@drawable/clear_btn"
+            android:visibility="invisible"/>
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </LinearLayout>

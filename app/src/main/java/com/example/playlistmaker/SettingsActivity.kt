@@ -33,16 +33,11 @@ class SettingsActivity : AppCompatActivity() {
             val emailSubject = this.getString(R.string.support_email_subject)
             val emailBody = this.getString(R.string.support_email_body)
 
-            val intent = Intent(Intent.ACTION_SEND)
+            val selectorIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:?subject=$emailSubject&to=$emailSend&body=$emailBody"))
 
-            intent.putExtra(Intent.EXTRA_EMAIL, emailSend)
-            intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-            intent.putExtra(Intent.EXTRA_TEXT, emailBody)
-
-            intent.type = "message/rfc822"
-
-            startActivity(Intent.createChooser(intent, this.getString(R.string.email_intent_title)))
+            startActivity(selectorIntent)
         }
+
         supportButton.setOnClickListener(supportClickListener)
 
         val termsOfUse = findViewById<ImageButton>(R.id.term_of_use_btn)

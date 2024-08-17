@@ -1,75 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/settingsBackground">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/settingsBackground"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0">
 
-    <ImageButton
-       android:id="@+id/back_btn"
-       style="@style/ImageButtonStyle"
-       android:layout_gravity="center"
-       android:src="@drawable/back_button"></ImageButton>
+        <ImageButton
+            android:id="@+id/back_btn"
+            style="@style/ImageButtonStyle"
+            android:layout_gravity="center"
+            android:src="@drawable/back_button"></ImageButton>
 
-    <TextView style="@style/MessageTextStyle"
-        android:drawablePadding="40dp"
-        android:text="@string/settings"
-        android:textSize="22sp"
-        android:textFontWeight="500"
-        android:layout_margin="20dp"
-        android:fontFamily="@font/ys_display_medium">
-    </TextView>
+        <TextView
+            style="@style/MessageTextStyle"
+            android:layout_margin="20dp"
+            android:drawablePadding="40dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/settings"
+            android:textFontWeight="500"
+            android:textSize="22sp"></TextView>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:layout_margin="10sp">
-    <TextView style="@style/MessageTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dark_theme"
-        android:layout_margin="10dp">
-    </TextView>
+        android:layout_margin="10sp"
+        android:layout_weight="0">
 
-    <View
-     android:layout_width="0dp"
-     android:layout_height="0dp"
-     android:layout_weight="1" />
+        <TextView
+            style="@style/MessageTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/dark_theme"></TextView>
 
-    <Switch
-        android:id="@+id/switchTheme_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-    </Switch>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Switch
+            android:id="@+id/switchTheme_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"></Switch>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:layout_margin="10sp"
-        android:orientation="horizontal">
-    <TextView style="@style/MessageTextStyle"
         android:layout_weight="0"
-        android:text="@string/share_app"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/ys_display_regular">
-    </TextView>
+        android:orientation="horizontal">
 
-    <View
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_weight="1" />
+        <TextView
+            style="@style/MessageTextStyle"
+            android:layout_margin="10dp"
+            android:layout_weight="0"
+            android:fontFamily="@font/ys_display_regular"
+            android:text="@string/share_app"></TextView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/share_btn"
@@ -81,18 +82,19 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:layout_margin = "10sp">
-    <TextView style="@style/MessageTextStyle"
-        android:text="@string/app_support"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/ys_display_regular">
-    </TextView>
+        android:layout_margin="10sp"
+        android:layout_weight="0">
 
-    <View
-     android:layout_width="0dp"
-     android:layout_height="0dp"
-     android:layout_weight="1" />
+        <TextView
+            style="@style/MessageTextStyle"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/ys_display_regular"
+            android:text="@string/app_support"></TextView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/support_btn"
@@ -104,19 +106,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:layout_margin = "10sp">
-    <TextView style="@style/MessageTextStyle"
-        android:layout_weight="0"
-        android:text="@string/user_agreement"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/ys_display_regular">
-    </TextView>
+        android:layout_margin="10sp"
+        android:layout_weight="0">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <TextView
+            style="@style/MessageTextStyle"
+            android:layout_margin="10dp"
+            android:layout_weight="0"
+            android:fontFamily="@font/ys_display_regular"
+            android:text="@string/user_agreement"></TextView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/term_of_use_btn"
