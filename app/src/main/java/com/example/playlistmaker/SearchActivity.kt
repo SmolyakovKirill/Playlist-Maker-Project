@@ -11,11 +11,22 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class SearchActivity : AppCompatActivity() {
 
     private var countValue: String = ""
+
+    private val itunesBaseUrl = "https://itunes.apple.com"
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(itunesBaseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val itunesService = retrofit.create(ITunesApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
