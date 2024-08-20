@@ -5,12 +5,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -81,6 +85,34 @@ class SearchActivity : AppCompatActivity() {
                 clearButton.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
+        }
+
+        inputEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (inputEditText.text.isNotEmpty()){
+                    itunesService.search(inputEditText.text.toString()).enqueue(object :
+                        Callback<TrackResponse>{
+                        override fun onResponse(call: Call<TrackResponse>,
+                                                response: Response<TrackResponse>
+                        ) {
+                            if (response.code() == 200) {
+                                trackList.clear()
+                                if (response.body()?.results?.isNotEmpty() == true) {
+                                    trackList.addAll(response.body()?.results!!)
+                                    trackAdapter.notifyDataSetChanged()
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
+                }
+                true
+            }
+            false
         }
 
         backButton.setOnClickListener{

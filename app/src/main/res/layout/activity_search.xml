@@ -44,6 +44,8 @@
             android:drawablePadding="10sp"
             android:hint="@string/search"
             android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             app:drawableLeftCompat="@drawable/search"></EditText>
 
         <ImageButton
