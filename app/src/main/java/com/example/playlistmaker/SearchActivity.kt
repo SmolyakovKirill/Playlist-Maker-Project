@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,17 +9,15 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -27,35 +26,43 @@ class SearchActivity : AppCompatActivity() {
 
     private var countValue: String = ""
 
+    private lateinit var inputEditText: EditText
+    private lateinit var clearButton: ImageButton
+    private lateinit var backButton: ImageButton
+    private lateinit var emptySearchFrame: LinearLayout
+    private lateinit var troubleWithConnectionFrame: LinearLayout
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var refreshButton: Button
+    private lateinit var trackAdapter: TrackAdapter
+
     private val itunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(itunesBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    private val itunesService = retrofit.create(ITunesApi::class.java)
 
     val trackList: MutableList<Track> = ArrayList()
-
-    private val itunesService = retrofit.create(ITunesApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        val inputEditText = findViewById<EditText>(R.id.searchEditText)
-        val clearButton = findViewById<ImageButton>(R.id.clear_btn)
-        val backButton = findViewById<ImageButton>(R.id.back_btn)
-        val emptySearchFrame = findViewById<LinearLayout>(R.id.emptySearchFrameLayout)
-        val troubleWithConnectionFrame = findViewById<LinearLayout>(R.id.troubleWithConnectionFrameLayout)
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val refreshButton = findViewById<Button>(R.id.refresh_btn)
+        inputEditText = findViewById(R.id.searchEditText)
+        clearButton = findViewById(R.id.clear_btn)
+        backButton = findViewById(R.id.back_btn)
+        emptySearchFrame = findViewById(R.id.emptySearchFrameLayout)
+        troubleWithConnectionFrame = findViewById(R.id.troubleWithConnectionFrameLayout)
+        recyclerView = findViewById(R.id.recyclerView)
+        refreshButton = findViewById(R.id.refresh_btn)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val trackAdapter = TrackAdapter(trackList)
+        trackAdapter = TrackAdapter(trackList)
         recyclerView.adapter = trackAdapter
 
-        val clearButtonWatcher = object : TextWatcher{
+        val clearButtonWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //empty
             }
@@ -74,9 +81,9 @@ class SearchActivity : AppCompatActivity() {
 
         inputEditText.addTextChangedListener(clearButtonWatcher)
 
-        clearButton.setOnClickListener{
+        clearButton.setOnClickListener {
             inputEditText.setText("")
-
+            trackList.clear()
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(
                 clearButton.windowToken,
@@ -87,50 +94,23 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                if (inputEditText.text.isNotEmpty()){
-                    itunesService.search(inputEditText.text.toString()).enqueue(object :
-                        Callback<TrackResponse>{
-                        override fun onResponse(call: Call<TrackResponse>,
-                                                response: Response<TrackResponse>
-                        ) {
-                            if (response.code() == 200) {
-                                trackList.clear()
-                                if (response.body()?.results?.isNotEmpty() == true) {
-                                    trackList.addAll(response.body()?.results!!)
-                                    trackAdapter.notifyDataSetChanged()
-                                }
-                                if (trackList.isEmpty()){
-                                    trackAdapter.notifyDataSetChanged()
-                                    emptySearchFrame.visibility = View.VISIBLE
-                                }
-                            }
-                            else{
-
-                            }
-                        }
-
-                        override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                            trackAdapter.notifyDataSetChanged()
-                            troubleWithConnectionFrame.visibility = View.VISIBLE
-                        }
-
-                    })
+                if (inputEditText.text.isNotEmpty()) {
+                    getTracks()
                 }
                 true
             }
             false
         }
 
-        backButton.setOnClickListener{
+        backButton.setOnClickListener {
             onBackPressed()
         }
 
         refreshButton.setOnClickListener {
-
+            getTracks()
         }
 
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -141,7 +121,6 @@ class SearchActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         // Вторым параметром мы передаём значение по умолчанию
         countValue = savedInstanceState.getString(PRODUCT_AMOUNT, AMOUNT_DEF)
-        val inputEditText = findViewById<EditText>(R.id.searchEditText)
         inputEditText.setText(countValue)
     }
 
@@ -156,6 +135,39 @@ class SearchActivity : AppCompatActivity() {
         } else {
             View.VISIBLE
         }
+    }
+
+    private fun getTracks() {
+        itunesService.search(inputEditText.text.toString()).enqueue(object :
+            Callback<TrackResponse> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<TrackResponse>,
+                response: Response<TrackResponse>
+            ) {
+                if (response.code() == 200) {
+                    troubleWithConnectionFrame.visibility = View.GONE
+                    emptySearchFrame.visibility = View.GONE
+                    trackList.clear()
+                    if (response.body()?.results?.isNotEmpty() == true) {
+                        trackList.addAll(response.body()?.results!!)
+                        trackAdapter.notifyDataSetChanged()
+                    }
+                    if (trackList.isEmpty()) {
+                        trackAdapter.notifyDataSetChanged()
+                        emptySearchFrame.visibility = View.VISIBLE
+                    }
+                } else {
+
+                }
+            }
+
+            override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                trackAdapter.notifyDataSetChanged()
+                troubleWithConnectionFrame.visibility = View.VISIBLE
+            }
+
+        })
     }
 
     override fun onBackPressed() {
