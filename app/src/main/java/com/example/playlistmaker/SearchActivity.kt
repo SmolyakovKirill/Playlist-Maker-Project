@@ -163,6 +163,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                refreshTrackFrame()
                 trackAdapter.notifyDataSetChanged()
                 troubleWithConnectionFrame.visibility = View.VISIBLE
             }
