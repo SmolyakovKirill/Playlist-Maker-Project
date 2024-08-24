@@ -14,7 +14,7 @@
             android:id="@+id/back_btn"
             style="@style/ImageButtonStyle"
             android:layout_gravity="center"
-            android:src="@drawable/back_button"></ImageButton>
+            android:src="@drawable/back_button" />
 
         <TextView
             style="@style/MessageTextStyle"
@@ -24,7 +24,7 @@
             android:fontFamily="@font/ys_display_medium"
             android:text="@string/search"
             android:textFontWeight="500"
-            android:textSize="@dimen/buttonTextSize"></TextView>
+            android:textSize="@dimen/buttonTextSize" />
     </LinearLayout>
 
     <FrameLayout
@@ -39,19 +39,19 @@
             android:id="@+id/searchEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
-            android:layout_gravity="left|center"
+            android:layout_gravity="start|center"
             android:background="@android:color/transparent"
             android:drawablePadding="10sp"
             android:hint="@string/search"
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:singleLine="true"
-            app:drawableLeftCompat="@drawable/search"></EditText>
+            app:drawableLeftCompat="@drawable/search" />
 
         <ImageButton
             android:id="@+id/clear_btn"
             style="@style/DeleteImageButtonStyle"
-            android:layout_gravity="right|center"
+            android:layout_gravity="end|center"
             android:layout_margin="10dp"
             android:src="@drawable/clear_btn"
             android:visibility="invisible" />
@@ -72,53 +72,72 @@
             android:id="@+id/emptySearchFrameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="110dp"
+            android:orientation="vertical"
             android:visibility="invisible">
 
             <ImageView
                 style="@style/SearchIsEmptyImage"
-                android:src="@drawable/search_is_empty_light"></ImageView>
+                android:layout_gravity="center" />
 
             <TextView
+                style="@style/SearchIsEmptyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/search_is_empty"
                 android:layout_gravity="center"
-                android:textColor="@color/black"></TextView>
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/search_is_empty"
+                android:textSize="19sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/troubleWithConnectionFrameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="110dp"
+            android:orientation="vertical"
             android:visibility="invisible">
 
             <ImageView
                 style="@style/TroubleWithConnectionImage"
-                android:layout_gravity="center"
-                android:src="@drawable/trouble_with_connection_light"></ImageView>
+                android:layout_gravity="center" />
 
             <TextView
+                style="@style/TroubleWithConnectionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/ys_display_medium"
                 android:text="@string/connection_trouble"
-                android:textColor="@color/black"></TextView>
+                android:textSize="19sp" />
+
             <TextView
+                style="@style/TroubleWithConnectionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:gravity="center"
+                android:maxWidth="280dp"
                 android:text="@string/connection_trouble_description"
-                android:textColor="@color/black"></TextView>
+                android:textSize="19sp" />
+
             <Button
                 android:id="@+id/refresh_btn"
+                style="@style/TroubleWithConnectionButton"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:text="@string/update"></Button>
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/update"
+                android:textSize="14sp"
+                app:cornerRadius="54dp" />
         </LinearLayout>
 
     </FrameLayout>
