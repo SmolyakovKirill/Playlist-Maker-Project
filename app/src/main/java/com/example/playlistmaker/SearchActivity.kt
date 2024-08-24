@@ -145,9 +145,9 @@ class SearchActivity : AppCompatActivity() {
                 call: Call<TrackResponse>,
                 response: Response<TrackResponse>
             ) {
+                refreshTrackFrame()
+
                 if (response.code() == 200) {
-                    troubleWithConnectionFrame.visibility = View.GONE
-                    emptySearchFrame.visibility = View.GONE
                     trackList.clear()
                     if (response.body()?.results?.isNotEmpty() == true) {
                         trackList.addAll(response.body()?.results!!)
@@ -169,6 +169,15 @@ class SearchActivity : AppCompatActivity() {
 
         })
     }
+
+    private fun refreshTrackFrame(){
+        troubleWithConnectionFrame.visibility = View.GONE
+        emptySearchFrame.visibility = View.GONE
+        trackList.clear()
+        trackAdapter.notifyDataSetChanged()
+        recyclerView.invalidate()
+    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
