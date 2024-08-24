@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -43,8 +43,8 @@
             android:background="@android:color/transparent"
             android:drawablePadding="10sp"
             android:hint="@string/search"
-            android:maxLines="1"
             android:imeOptions="actionDone"
+            android:maxLines="1"
             android:singleLine="true"
             app:drawableLeftCompat="@drawable/search"></EditText>
 
@@ -54,14 +54,74 @@
             android:layout_gravity="right|center"
             android:layout_margin="10dp"
             android:src="@drawable/clear_btn"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <LinearLayout
+            android:id="@+id/emptySearchFrameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible">
+
+            <ImageView
+                style="@style/SearchIsEmptyImage"
+                android:src="@drawable/search_is_empty_light"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_is_empty"
+                android:layout_gravity="center"
+                android:textColor="@color/black"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/troubleWithConnectionFrameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible">
+
+            <ImageView
+                style="@style/TroubleWithConnectionImage"
+                android:layout_gravity="center"
+                android:src="@drawable/trouble_with_connection_light"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/connection_trouble"
+                android:textColor="@color/black"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/connection_trouble_description"
+                android:textColor="@color/black"></TextView>
+            <Button
+                android:id="@+id/refresh_btn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/update"></Button>
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </LinearLayout>
