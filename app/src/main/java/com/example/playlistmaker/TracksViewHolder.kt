@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class TracksViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView){
     private val sourceName: TextView = parentView.findViewById(R.id.sourceName)
@@ -16,6 +18,7 @@ class TracksViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView){
 
     fun bind(model: Track) {
         // присваиваем в TextView значения из нашей модели
+        val dateFormatter = SimpleDateFormat("mm:ss", Locale.getDefault())
         sourceName.text = model.trackName
         text.text = model.artistName
         Glide.with(itemView)
@@ -23,6 +26,6 @@ class TracksViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView){
             .placeholder(R.drawable.track_placeholder)
             .transform(RoundedCorners(10))
             .into(trackIcon)
-        trackTime.text = model.trackTime
+        trackTime.text = dateFormatter.format(model.trackTimeMillis)
     }
 }
