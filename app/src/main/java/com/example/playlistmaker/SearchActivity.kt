@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
     private var countValue: String = ""
 
@@ -59,7 +60,7 @@ class SearchActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        trackAdapter = TrackAdapter(trackList)
+        trackAdapter = TrackAdapter(trackList, this)
         recyclerView.adapter = trackAdapter
 
         val clearButtonWatcher = object : TextWatcher {
@@ -183,5 +184,9 @@ class SearchActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish() // Завершаем текущее Activity
+    }
+
+    override fun onClick(track: Track) {
+        Toast.makeText(this, track.trackName, Toast.LENGTH_LONG).show()
     }
 }
