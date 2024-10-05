@@ -1,9 +1,12 @@
 package com.example.playlistmaker
 
+import android.R.array
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -11,30 +14,38 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Response
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
+const val PRACTICUM_EXAMPLE_PREFERENCES = "user_preferences"
+const val TRACKS_LIST_KEY = "key_for_tracks_list"
+
 class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
+
+    var sharedPreferences: SharedPreferences? = null
 
     private var countValue: String = ""
 
     private lateinit var inputEditText: EditText
     private lateinit var clearButton: ImageButton
     private lateinit var backButton: ImageButton
+    private lateinit var clearHistoryButton: Button
     private lateinit var emptySearchFrame: LinearLayout
     private lateinit var troubleWithConnectionFrame: LinearLayout
+    private lateinit var tracksHistoryFrameLayout: LinearLayout
     private lateinit var recyclerView: RecyclerView
+    private lateinit var historyRecyclerView: RecyclerView
     private lateinit var refreshButton: Button
     private lateinit var trackAdapter: TrackAdapter
+    private lateinit var historyAdapter: TrackAdapter
 
     private val itunesBaseUrl = "https://itunes.apple.com"
 
@@ -45,34 +56,66 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     private val itunesService = retrofit.create(ITunesApi::class.java)
 
     val trackList: MutableList<Track> = ArrayList()
+    var prefTrackList: MutableList<Track> = ArrayList()
+    var correctPrefList: MutableList<Track> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        prefTrackList.clear()
+
+        val sharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
+
+        val previousTrackList = sharedPreferences.getString(TRACKS_LIST_KEY, null)
+            ?.let { createTrackFromJson(it) }
+
+        if (previousTrackList != null) {
+            prefTrackList = previousTrackList.toMutableList()
+        }
+
+        for (log in prefTrackList) {
+            Log.v("Tag", log.toString())
+        }
+
         inputEditText = findViewById(R.id.searchEditText)
         clearButton = findViewById(R.id.clear_btn)
+        clearHistoryButton = findViewById(R.id.clear_history_btn)
         backButton = findViewById(R.id.back_btn)
         emptySearchFrame = findViewById(R.id.emptySearchFrameLayout)
         troubleWithConnectionFrame = findViewById(R.id.troubleWithConnectionFrameLayout)
+        tracksHistoryFrameLayout = findViewById(R.id.tracksHistoryFrameLayout)
         recyclerView = findViewById(R.id.recyclerView)
+        historyRecyclerView = findViewById(R.id.historyRecyclerView)
         refreshButton = findViewById(R.id.refresh_btn)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+        historyRecyclerView.layoutManager = LinearLayoutManager(this)
 
         trackAdapter = TrackAdapter(trackList, this)
         recyclerView.adapter = trackAdapter
 
+        historyAdapter = TrackAdapter(prefTrackList, this)
+        historyRecyclerView.adapter = historyAdapter
+
+        inputEditText.setOnFocusChangeListener{ view, hasFocus ->
+            historyRecyclerView.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty()) View.VISIBLE else View.GONE
+            tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty()) View.VISIBLE else View.GONE
+        }
+
         val clearButtonWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //empty
+                //override
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 clearButton.visibility = clearButtonVisibility(p0)
                 recyclerView.visibility = clearButtonVisibility(p0)
+
                 emptySearchFrame.visibility = View.GONE
                 troubleWithConnectionFrame.visibility = View.GONE
+                historyRecyclerView.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true) View.VISIBLE else View.GONE
+                tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true) View.VISIBLE else View.GONE
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -85,6 +128,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         clearButton.setOnClickListener {
             inputEditText.setText("")
             trackList.clear()
+            historyAdapter.notifyDataSetChanged()
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(
                 clearButton.windowToken,
@@ -111,6 +155,26 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
             getTracks()
         }
 
+        clearHistoryButton.setOnClickListener {
+            prefTrackList.clear()
+            sharedPreferences.edit()
+                .putString(TRACKS_LIST_KEY, createJsonFromTrack(correctPrefList))
+                .apply()
+            historyAdapter.notifyDataSetChanged()
+            historyRecyclerView.visibility = View.GONE
+            tracksHistoryFrameLayout.visibility = View.GONE
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val sharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putString(TRACKS_LIST_KEY, createJsonFromTrack(correctPrefList))
+            .apply()
+        prefTrackList.clear()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -177,6 +241,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         emptySearchFrame.visibility = View.GONE
         trackList.clear()
         trackAdapter.notifyDataSetChanged()
+        historyAdapter.notifyDataSetChanged()
         recyclerView.invalidate()
     }
 
@@ -187,6 +252,22 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     }
 
     override fun onClick(track: Track) {
-        Toast.makeText(this, track.trackName, Toast.LENGTH_LONG).show()
+        AddTrackInHistory(track)
+    }
+
+    private fun AddTrackInHistory(track: Track){
+        prefTrackList.reverse()
+        prefTrackList.remove(track)
+        prefTrackList.add(track)
+        prefTrackList.reverse()
+        correctPrefList = prefTrackList
+    }
+
+    private fun createJsonFromTrack(track: List<Track>): String{
+        return Gson().toJson(track)
+    }
+
+    private fun createTrackFromJson(json: String) : Array<Track>{
+        return Gson().fromJson(json, Array<Track>::class.java)
     }
 }
