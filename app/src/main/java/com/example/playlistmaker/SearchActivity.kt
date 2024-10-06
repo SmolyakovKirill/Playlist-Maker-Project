@@ -30,9 +30,8 @@ const val TRACKS_LIST_KEY = "key_for_tracks_list"
 
 class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
-    var sharedPreferences: SharedPreferences? = null
-
     private var countValue: String = ""
+    private var trackCounter: Int = 0
 
     private lateinit var inputEditText: EditText
     private lateinit var clearButton: ImageButton
@@ -47,7 +46,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var historyAdapter: TrackAdapter
 
-    private val itunesBaseUrl = "https://itunes.apple.com"
+   private val itunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(itunesBaseUrl)
@@ -56,14 +55,15 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     private val itunesService = retrofit.create(ITunesApi::class.java)
 
     val trackList: MutableList<Track> = ArrayList()
-    var prefTrackList: MutableList<Track> = ArrayList()
-    var correctPrefList: MutableList<Track> = ArrayList()
+    var prefTrackList: MutableList<Track> = MutableList(15) { Track() }
+    var correctPrefList: MutableList<Track> = MutableList(15) { Track() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         prefTrackList.clear()
+        correctPrefList.clear()
 
         val sharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
 
@@ -71,10 +71,10 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
             ?.let { createTrackFromJson(it) }
 
         if (previousTrackList != null) {
-            prefTrackList = previousTrackList.toMutableList()
+            correctPrefList = previousTrackList.toMutableList()
         }
 
-        for (log in prefTrackList) {
+        for (log in correctPrefList) {
             Log.v("Tag", log.toString())
         }
 
@@ -95,7 +95,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         trackAdapter = TrackAdapter(trackList, this)
         recyclerView.adapter = trackAdapter
 
-        historyAdapter = TrackAdapter(prefTrackList, this)
+        historyAdapter = TrackAdapter(correctPrefList, this)
         historyRecyclerView.adapter = historyAdapter
 
         inputEditText.setOnFocusChangeListener{ view, hasFocus ->
@@ -128,12 +128,23 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         clearButton.setOnClickListener {
             inputEditText.setText("")
             trackList.clear()
-            historyAdapter.notifyDataSetChanged()
+            correctPrefList.clear()
+            val previousTrackList = sharedPreferences.getString(TRACKS_LIST_KEY, null)
+                ?.let { createTrackFromJson(it) }
+
+            if (previousTrackList != null) {
+                correctPrefList = previousTrackList.toMutableList()
+            }
+            historyAdapter = TrackAdapter(correctPrefList, this)
+            historyRecyclerView.adapter = historyAdapter
+
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(
                 clearButton.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
+            historyRecyclerView.visibility = if(inputEditText.text?.isEmpty() == true) View.VISIBLE else View.GONE
+            tracksHistoryFrameLayout.visibility = if(inputEditText.text?.isEmpty() == true) View.VISIBLE else View.GONE
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -157,6 +168,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
         clearHistoryButton.setOnClickListener {
             prefTrackList.clear()
+            correctPrefList.clear()
             sharedPreferences.edit()
                 .putString(TRACKS_LIST_KEY, createJsonFromTrack(correctPrefList))
                 .apply()
@@ -175,6 +187,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
             .putString(TRACKS_LIST_KEY, createJsonFromTrack(correctPrefList))
             .apply()
         prefTrackList.clear()
+        correctPrefList.clear()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -243,6 +256,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         trackAdapter.notifyDataSetChanged()
         historyAdapter.notifyDataSetChanged()
         recyclerView.invalidate()
+        historyRecyclerView.invalidate()
     }
 
 
@@ -256,11 +270,23 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     }
 
     private fun AddTrackInHistory(track: Track){
+        val sharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
+        val previousTrackList = sharedPreferences.getString(TRACKS_LIST_KEY, null)
+            ?.let { createTrackFromJson(it) }
+
+        if (previousTrackList != null) {
+            prefTrackList = previousTrackList.toMutableList()
+        }
+        if(prefTrackList.size == 15)
+            prefTrackList.removeAt(14)
         prefTrackList.reverse()
         prefTrackList.remove(track)
         prefTrackList.add(track)
         prefTrackList.reverse()
         correctPrefList = prefTrackList
+        sharedPreferences.edit()
+            .putString(TRACKS_LIST_KEY, createJsonFromTrack(correctPrefList))
+            .apply()
     }
 
     private fun createJsonFromTrack(track: List<Track>): String{
