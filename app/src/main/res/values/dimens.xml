@@ -6,8 +6,17 @@
     <dimen name="cornerRadius">20sp</dimen>
     <integer name="buttonTextWeight">500</integer>
     <integer name="textViewTextWeight">400</integer>
+    <integer name="trackNameMaxLength">40</integer>
+    <integer name="trackNameMaxLines">1</integer>
     <dimen name="trackIconSize">45sp</dimen>
     <dimen name="trackNameSize">16sp</dimen>
     <dimen name="trackMargin">0dp</dimen>
     <dimen name="trackDescriptionTextSize">11sp</dimen>
+    <dimen name="marginBetweenInformFrame">12dp</dimen>
+    <dimen name="textSizeInformFrame">19sp</dimen>
+    <dimen name="refreshButtonTextSize">14sp</dimen>
+    <dimen name="refreshButtonRadiusCorner">54dp</dimen>
+    <dimen name="marginTopFrame">110dp</dimen>
+    <dimen name="marginHistoryFrame">56dp</dimen>
+    <dimen name="maxWidthTroubleWithConnectionTextView">280dp</dimen>
 </resources>
