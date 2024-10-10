@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="EditTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -11,7 +10,6 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textFontWeight">@integer/textViewTextWeight</item>
     </style>
-
     <style name="MessageTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -22,7 +20,6 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textFontWeight">@integer/textViewTextWeight</item>
     </style>
-
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/black</item>
@@ -35,45 +32,17 @@
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textFontWeight">@integer/textViewTextWeight</item>
     </style>
-
     <style name="ImageButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:background">@null</item>
     </style>
-
     <style name="DeleteImageButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:tint">@color/grey</item>
         <item name="android:background">@null</item>
-    </style>
-
-    <style name="SearchIsEmptyImage">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/search_is_empty_light</item>
-
-    </style>
-
-    <style name="TroubleWithConnectionImage">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/trouble_with_connection_light</item>
-    </style>
-
-    <style name="SearchIsEmptyTextView">
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="TroubleWithConnectionTextView">
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="TroubleWithConnectionButton">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:backgroundTint">@color/black</item>
     </style>
 </resources>

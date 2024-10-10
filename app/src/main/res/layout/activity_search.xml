@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,7 +14,7 @@
             android:id="@+id/back_btn"
             style="@style/ImageButtonStyle"
             android:layout_gravity="center"
-            android:src="@drawable/back_button" />
+            android:src="@drawable/back_button"></ImageButton>
 
         <TextView
             style="@style/MessageTextStyle"
@@ -24,7 +24,7 @@
             android:fontFamily="@font/ys_display_medium"
             android:text="@string/search"
             android:textFontWeight="500"
-            android:textSize="@dimen/buttonTextSize" />
+            android:textSize="@dimen/buttonTextSize"></TextView>
     </LinearLayout>
 
     <FrameLayout
@@ -39,156 +39,27 @@
             android:id="@+id/searchEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
-            android:layout_gravity="start|center"
+            android:layout_gravity="left|center"
             android:background="@android:color/transparent"
             android:drawablePadding="10sp"
             android:hint="@string/search"
-            android:imeOptions="actionDone"
             android:maxLines="1"
-            android:singleLine="true"
-            app:drawableLeftCompat="@drawable/search" />
+            app:drawableLeftCompat="@drawable/search"></EditText>
 
         <ImageButton
             android:id="@+id/clear_btn"
             style="@style/DeleteImageButtonStyle"
-            android:layout_gravity="end|center"
+            android:layout_gravity="right|center"
             android:layout_margin="10dp"
             android:src="@drawable/clear_btn"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
     </FrameLayout>
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <LinearLayout
-            android:id="@+id/emptySearchFrameLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/marginTopFrame"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <ImageView
-                style="@style/SearchIsEmptyImage"
-                android:layout_gravity="center" />
-
-            <TextView
-                style="@style/SearchIsEmptyTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginBetweenInformFrame"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/search_is_empty"
-                android:textSize="@dimen/textSizeInformFrame" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/troubleWithConnectionFrameLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/marginTopFrame"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <ImageView
-                style="@style/TroubleWithConnectionImage"
-                android:layout_gravity="center" />
-
-            <TextView
-                style="@style/TroubleWithConnectionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginBetweenInformFrame"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/connection_trouble"
-                android:textSize="@dimen/textSizeInformFrame" />
-
-            <TextView
-                style="@style/TroubleWithConnectionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginBetweenInformFrame"
-                android:fontFamily="@font/ys_display_medium"
-                android:gravity="center"
-                android:maxWidth="@dimen/maxWidthTroubleWithConnectionTextView"
-                android:text="@string/connection_trouble_description"
-                android:textSize="@dimen/textSizeInformFrame" />
-
-            <Button
-                android:id="@+id/refresh_btn"
-                style="@style/TroubleWithConnectionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginBetweenInformFrame"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/update"
-                android:textSize="@dimen/refreshButtonTextSize"
-                app:cornerRadius="@dimen/refreshButtonRadiusCorner" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tracksHistoryFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/marginHistoryFrame"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <TextView
-                style="@style/TroubleWithConnectionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginBetweenInformFrame"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/history_header"
-                android:textSize="@dimen/textSizeInformFrame" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Id_const_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/historyRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintHeight_max="320sp"
-                    tools:ignore="MissingConstraints" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <Button
-                android:id="@+id/clear_history_btn"
-                style="@style/TroubleWithConnectionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/marginBetweenInformFrame"
-                android:fontFamily="@font/ys_display_medium"
-                android:text="@string/clear_history"
-                android:textSize="@dimen/refreshButtonTextSize"
-                app:cornerRadius="@dimen/refreshButtonRadiusCorner" />
-        </LinearLayout>
-
-    </FrameLayout>
-
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </LinearLayout>

@@ -17,10 +17,4 @@
     <string name="share_subject" translatable="false">"Link to YP lessons"</string>
     <string name="share_intent_title" translatable="false">"Share Link"</string>
     <string name="email_intent_title" translatable="false">Email to developer</string>
-    <string name="connection_trouble">Проблемы с соединением</string>
-    <string name="connection_trouble_description">Загрузка не удалась. Проверьте подключение к интернету</string>
-    <string name="search_is_empty">Ничего не нашлось</string>
-    <string name="update">Обновить</string>
-    <string name="clear_history">Очистить историю</string>
-    <string name="history_header">Вы искали</string>
 </resources>
