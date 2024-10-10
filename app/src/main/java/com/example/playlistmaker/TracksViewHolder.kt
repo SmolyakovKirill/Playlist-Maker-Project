@@ -30,7 +30,7 @@ class TracksViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView){
             .transform(RoundedCorners(10))
             .into(trackIcon)
         trackTime.text = dateFormatter.format(model.trackTimeMillis)
-
+        
         itemView.setOnClickListener {
             listener.onClick(model)
         }
