@@ -23,8 +23,4 @@
     <string name="update">Обновить</string>
     <string name="clear_history">Очистить историю</string>
     <string name="history_header">Вы искали</string>
-    <string name="connection_trouble">Communication problems</string>
-    <string name="connection_trouble_description">Загрузка не удалась. Проверьте подключение к интернету</string>
-    <string name="search_is_empty">Ничего не нашлось</string>
-    <string name="update">Обновить</string>
 </resources>

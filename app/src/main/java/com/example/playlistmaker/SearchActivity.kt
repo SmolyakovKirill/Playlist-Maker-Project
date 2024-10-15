@@ -99,8 +99,8 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         historyRecyclerView.adapter = historyAdapter
 
         inputEditText.setOnFocusChangeListener{ view, hasFocus ->
-            historyRecyclerView.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty()) View.VISIBLE else View.GONE
-            tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty()) View.VISIBLE else View.GONE
+            historyRecyclerView.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty() && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
+            tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty() && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
         val clearButtonWatcher = object : TextWatcher {
@@ -143,8 +143,8 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
                 clearButton.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
-            historyRecyclerView.visibility = if(inputEditText.text?.isEmpty() == true) View.VISIBLE else View.GONE
-            tracksHistoryFrameLayout.visibility = if(inputEditText.text?.isEmpty() == true) View.VISIBLE else View.GONE
+            historyRecyclerView.visibility = if(inputEditText.text?.isEmpty() == true && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
+            tracksHistoryFrameLayout.visibility = if(inputEditText.text?.isEmpty() == true && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -277,8 +277,8 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         if (previousTrackList != null) {
             prefTrackList = previousTrackList.toMutableList()
         }
-        if(prefTrackList.size == 15)
-            prefTrackList.removeAt(14)
+        if(prefTrackList.size == 10)
+            prefTrackList.removeAt(9)
         prefTrackList.reverse()
         prefTrackList.remove(track)
         prefTrackList.add(track)

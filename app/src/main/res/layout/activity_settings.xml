@@ -50,7 +50,9 @@
             android:id="@+id/switchTheme_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"></Switch>
+            android:layout_margin="10dp"
+            android:trackTint="@color/SW_Color"
+            android:thumbTint="@color/SW_Color"></Switch>
     </LinearLayout>
 
     <LinearLayout

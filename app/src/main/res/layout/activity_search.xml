@@ -41,12 +41,14 @@
             android:layout_width="match_parent"
             android:layout_gravity="start|center"
             android:background="@android:color/transparent"
+            android:textSelectHandle="@color/lightActivityBackground"
             android:drawablePadding="10sp"
             android:hint="@string/search"
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:singleLine="true"
-            app:drawableLeftCompat="@drawable/search" />
+            app:drawableLeftCompat="@drawable/search"
+            app:drawableTint="@color/LP_Color"/>
 
         <ImageButton
             android:id="@+id/clear_btn"

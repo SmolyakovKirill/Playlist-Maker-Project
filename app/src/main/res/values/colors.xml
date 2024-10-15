@@ -3,6 +3,9 @@
     <color name="black">#1A1B22</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#AEAFB4</color>
+    <color name="SW_Dark_Color">#3772E7</color>
+    <color name="SW_Color">#CECFD2</color>
+    <color name="LP_Color">#B8B9BE</color>
     <color name="lightActivityBackground">#3772E7</color>
     <color name="settingsBackground">#FFFFFF</color>
     <color name="searchPanelColor">#E6E8EB</color>
