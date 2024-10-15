@@ -103,7 +103,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
             tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && inputEditText.text.isEmpty() && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
         }
 
-        val clearButtonWatcher = object : TextWatcher {
+        val clearButtonWatcher = object : TextWatcher, TrackAdapter.Listener {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //override
             }
@@ -114,12 +114,26 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
                 emptySearchFrame.visibility = View.GONE
                 troubleWithConnectionFrame.visibility = View.GONE
-                historyRecyclerView.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true) View.VISIBLE else View.GONE
-                tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true) View.VISIBLE else View.GONE
+
+                val previousTrackList = sharedPreferences.getString(TRACKS_LIST_KEY, null)
+                    ?.let { createTrackFromJson(it) }
+
+                if (previousTrackList != null) {
+                    correctPrefList = previousTrackList.toMutableList()
+                }
+                historyAdapter = TrackAdapter(correctPrefList, this)
+                historyRecyclerView.adapter = historyAdapter
+                
+                historyRecyclerView.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
+                tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
             }
 
             override fun afterTextChanged(p0: Editable?) {
                 countValue = p0.toString()
+            }
+
+            override fun onClick(track: Track) {
+                TODO("Not yet implemented")
             }
         }
 

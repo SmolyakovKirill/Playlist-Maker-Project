@@ -48,7 +48,8 @@
             android:maxLines="1"
             android:singleLine="true"
             app:drawableLeftCompat="@drawable/search"
-            app:drawableTint="@color/LP_Color"/>
+            app:drawableTint="@color/LP_Color"
+            android:textCursorDrawable="@color/lightActivityBackground"/>
 
         <ImageButton
             android:id="@+id/clear_btn"
