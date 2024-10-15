@@ -49,7 +49,7 @@
             android:singleLine="true"
             app:drawableLeftCompat="@drawable/search"
             app:drawableTint="@color/LP_Color"
-            android:textCursorDrawable="@color/lightActivityBackground"/>
+            android:textCursorDrawable="@drawable/cursor_color"/>
 
         <ImageButton
             android:id="@+id/clear_btn"
