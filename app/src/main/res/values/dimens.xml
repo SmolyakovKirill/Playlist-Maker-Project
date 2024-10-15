@@ -17,5 +17,6 @@
     <dimen name="refreshButtonTextSize">14sp</dimen>
     <dimen name="refreshButtonRadiusCorner">54dp</dimen>
     <dimen name="marginTopFrame">110dp</dimen>
+    <dimen name="marginHistoryFrame">56dp</dimen>
     <dimen name="maxWidthTroubleWithConnectionTextView">280dp</dimen>
 </resources>

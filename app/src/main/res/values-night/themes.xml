@@ -2,6 +2,8 @@
 <resources>
     <color name="lightActivityBackground">@color/black</color>
     <color name="settingsBackground">@color/black</color>
+    <color name="SW_Color">@color/SW_Dark_Color</color>
+    <color name="LP_Color">@color/black</color>
 
     <style name="EditTextStyle">
         <item name="android:layout_width">wrap_content</item>

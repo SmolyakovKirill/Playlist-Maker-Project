@@ -41,12 +41,15 @@
             android:layout_width="match_parent"
             android:layout_gravity="start|center"
             android:background="@android:color/transparent"
+            android:textSelectHandle="@color/lightActivityBackground"
             android:drawablePadding="10sp"
             android:hint="@string/search"
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:singleLine="true"
-            app:drawableLeftCompat="@drawable/search" />
+            app:drawableLeftCompat="@drawable/search"
+            app:drawableTint="@color/LP_Color"
+            android:textCursorDrawable="@drawable/cursor_color"/>
 
         <ImageButton
             android:id="@+id/clear_btn"
@@ -136,6 +139,54 @@
                 android:layout_marginTop="@dimen/marginBetweenInformFrame"
                 android:fontFamily="@font/ys_display_medium"
                 android:text="@string/update"
+                android:textSize="@dimen/refreshButtonTextSize"
+                app:cornerRadius="@dimen/refreshButtonRadiusCorner" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tracksHistoryFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/marginHistoryFrame"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <TextView
+                style="@style/TroubleWithConnectionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/marginBetweenInformFrame"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/history_header"
+                android:textSize="@dimen/textSizeInformFrame" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/Id_const_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/historyRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintHeight_max="320sp"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/clear_history_btn"
+                style="@style/TroubleWithConnectionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/marginBetweenInformFrame"
+                android:fontFamily="@font/ys_display_medium"
+                android:text="@string/clear_history"
                 android:textSize="@dimen/refreshButtonTextSize"
                 app:cornerRadius="@dimen/refreshButtonRadiusCorner" />
         </LinearLayout>
