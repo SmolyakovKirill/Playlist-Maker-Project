@@ -2,6 +2,7 @@ package com.example.playlistmaker
 
 import android.R.array
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -281,6 +283,14 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
     override fun onClick(track: Track) {
         AddTrackInHistory(track)
+        val trackIntent = Intent(this, TrackActivity::class.java)
+        trackIntent.putExtra("trackName", track.trackName)
+        trackIntent.putExtra("artistName", track.artistName)
+        trackIntent.putExtra("collectionName", track.collectionName)
+        trackIntent.putExtra("releaseDate", track.releaseDate)
+        trackIntent.putExtra("primaryGenreName", track.primaryGenreName)
+        trackIntent.putExtra("country", track.country)
+        startActivity(trackIntent)
     }
 
     private fun AddTrackInHistory(track: Track){

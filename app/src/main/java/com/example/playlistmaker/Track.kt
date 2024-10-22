@@ -9,5 +9,9 @@ data class Track(
     val trackName: String = "Undefined",
     val artistName: String = "Undefined",
     val trackTimeMillis: Long = 0,
-    val artworkUrl100: String = "Undefined"
+    val artworkUrl100: String = "Undefined",
+    val collectionName: String = "Undefined",
+    val releaseDate: String = "Undefined",
+    val primaryGenreName: String = "Undefined",
+    val country: String = "Undefined"
 )
