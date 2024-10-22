@@ -23,4 +23,6 @@
     <string name="update">Обновить</string>
     <string name="clear_history">Очистить историю</string>
     <string name="history_header">Вы искали</string>
+    <string name="track_progress" translatable="false">"0:30"</string>
+    <string name="title_activity_track">TrackActivity</string>
 </resources>
