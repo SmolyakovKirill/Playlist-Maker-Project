@@ -48,7 +48,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var historyAdapter: TrackAdapter
 
-   private val itunesBaseUrl = "https://itunes.apple.com"
+    private val itunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(itunesBaseUrl)
@@ -125,7 +125,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
                 }
                 historyAdapter = TrackAdapter(correctPrefList, this)
                 historyRecyclerView.adapter = historyAdapter
-                
+
                 historyRecyclerView.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
                 tracksHistoryFrameLayout.visibility = if(inputEditText.hasFocus() && p0?.isEmpty() == true && correctPrefList.isNotEmpty()) View.VISIBLE else View.GONE
             }
@@ -290,6 +290,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         trackIntent.putExtra("releaseDate", track.releaseDate)
         trackIntent.putExtra("primaryGenreName", track.primaryGenreName)
         trackIntent.putExtra("country", track.country)
+        trackIntent.putExtra("icon", track.getCoverArtwork())
         startActivity(trackIntent)
     }
 

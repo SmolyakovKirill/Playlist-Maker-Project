@@ -14,4 +14,6 @@ data class Track(
     val releaseDate: String = "Undefined",
     val primaryGenreName: String = "Undefined",
     val country: String = "Undefined"
-)
+){
+    fun getCoverArtwork() = artworkUrl100.replaceAfterLast('/',"512x512bb.jpg")
+}

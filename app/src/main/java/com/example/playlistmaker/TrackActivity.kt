@@ -3,7 +3,10 @@ package com.example.playlistmaker
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -16,6 +19,7 @@ class TrackActivity : AppCompatActivity() {
     private lateinit var yearTextView: TextView
     private lateinit var genreTextView: TextView
     private lateinit var countryTextView: TextView
+    private lateinit var trackIcon: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +34,11 @@ class TrackActivity : AppCompatActivity() {
         val releaseDate = intent.getSerializableExtra("releaseDate")
         val primaryGenreName = intent.getSerializableExtra("primaryGenreName")
         val country = intent.getSerializableExtra("country")
+        val icon = intent.getSerializableExtra("icon")
 
         val dateFormatter = SimpleDateFormat("mm:ss", Locale.getDefault())
+
+        trackIcon = findViewById(R.id.trackMediaIcon)
 
         songNameTextView = findViewById(R.id.song_name)
         songNameTextView.text = trackName.toString()
@@ -53,6 +60,12 @@ class TrackActivity : AppCompatActivity() {
 
         countryTextView = findViewById(R.id.track_country_value)
         countryTextView.text = country.toString()
+
+        Glide.with(baseContext)
+            .load(icon)
+            .placeholder(R.drawable.track_placeholder)
+            .transform(RoundedCorners(10))
+            .into(trackIcon)
 
         backButton.setOnClickListener {
             onBackPressed()
