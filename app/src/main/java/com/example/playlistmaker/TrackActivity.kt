@@ -56,7 +56,7 @@ class TrackActivity : AppCompatActivity() {
         genreTextView.text = primaryGenreName.toString()
 
         yearTextView = findViewById(R.id.track_year_value)
-        yearTextView.text = releaseDate.toString()
+        yearTextView.text = releaseDate.toString().substringBefore('-')
 
         countryTextView = findViewById(R.id.track_country_value)
         countryTextView.text = country.toString()
