@@ -28,8 +28,8 @@ class TrackActivity : AppCompatActivity() {
         val backButton = findViewById<ImageButton>(R.id.track_back_btn)
 
         val trackName = intent.getSerializableExtra("trackName")
-        val groupName = intent.getSerializableExtra("groupName")
-        val duration = intent.getSerializableExtra("trackTimeMillis")
+        val groupName = intent.getSerializableExtra("artistName")
+        val duration = intent.getSerializableExtra("trackDuration")
         val collectionName = intent.getSerializableExtra("collectionName")
         val releaseDate = intent.getSerializableExtra("releaseDate")
         val primaryGenreName = intent.getSerializableExtra("primaryGenreName")
@@ -47,7 +47,7 @@ class TrackActivity : AppCompatActivity() {
         groupNameTextView.text = groupName.toString()
 
         durationTextView = findViewById(R.id.track_duration_value)
-        durationTextView.text = duration.toString()
+        durationTextView.text = dateFormatter.format(duration)
 
         albumTextView = findViewById(R.id.track_album_value)
         albumTextView.text = collectionName.toString()
@@ -60,6 +60,7 @@ class TrackActivity : AppCompatActivity() {
 
         countryTextView = findViewById(R.id.track_country_value)
         countryTextView.text = country.toString()
+
 
         Glide.with(baseContext)
             .load(icon)

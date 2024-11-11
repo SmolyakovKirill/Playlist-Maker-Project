@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/searchActivityBackground">
 
     <TextView style="@style/MessageTextStyle"
         android:id="@+id/currentTrackProge"
@@ -145,6 +146,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/search_is_empty"
         android:textSize="16sp"
+        android:maxLength="@integer/maxAlbumLenght"
         app:layout_constraintEnd_toStartOf="@+id/right_guideline"
         app:layout_constraintTop_toBottomOf="@+id/track_duration_value" />
 

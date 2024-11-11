@@ -285,6 +285,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         AddTrackInHistory(track)
         val trackIntent = Intent(this, TrackActivity::class.java)
         trackIntent.putExtra("trackName", track.trackName)
+        trackIntent.putExtra("trackDuration", track.trackTimeMillis)
         trackIntent.putExtra("artistName", track.artistName)
         trackIntent.putExtra("collectionName", track.collectionName)
         trackIntent.putExtra("releaseDate", track.releaseDate)
