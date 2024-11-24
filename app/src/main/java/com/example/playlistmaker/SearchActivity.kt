@@ -38,6 +38,10 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     private var countValue: String = ""
     private var trackCounter: Int = 0
 
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { getTracks() }
+
     private lateinit var inputEditText: EditText
     private lateinit var clearButton: ImageButton
     private lateinit var backButton: ImageButton
@@ -224,7 +228,8 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     companion object {
         const val PRODUCT_AMOUNT = "PRODUCT_AMOUNT"
         const val AMOUNT_DEF = ""
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        private const val SEARCH_DEBOUNCE_DELAY = 800L
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -265,8 +270,6 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
                             trackAdapter.notifyDataSetChanged()
                             emptySearchFrame.visibility = View.VISIBLE
                         }
-                    } else {
-
                     }
                 }
 
@@ -298,17 +301,19 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     }
 
     override fun onClick(track: Track) {
-        AddTrackInHistory(track)
-        val trackIntent = Intent(this, TrackActivity::class.java)
-        trackIntent.putExtra("trackName", track.trackName)
-        trackIntent.putExtra("trackDuration", track.trackTimeMillis)
-        trackIntent.putExtra("artistName", track.artistName)
-        trackIntent.putExtra("collectionName", track.collectionName)
-        trackIntent.putExtra("releaseDate", track.releaseDate)
-        trackIntent.putExtra("primaryGenreName", track.primaryGenreName)
-        trackIntent.putExtra("country", track.country)
-        trackIntent.putExtra("icon", track.getCoverArtwork())
-        startActivity(trackIntent)
+        if (clickDebounce()) {
+            AddTrackInHistory(track)
+            val trackIntent = Intent(this, TrackActivity::class.java)
+            trackIntent.putExtra("trackName", track.trackName)
+            trackIntent.putExtra("trackDuration", track.trackTimeMillis)
+            trackIntent.putExtra("artistName", track.artistName)
+            trackIntent.putExtra("collectionName", track.collectionName)
+            trackIntent.putExtra("releaseDate", track.releaseDate)
+            trackIntent.putExtra("primaryGenreName", track.primaryGenreName)
+            trackIntent.putExtra("country", track.country)
+            trackIntent.putExtra("icon", track.getCoverArtwork())
+            startActivity(trackIntent)
+        }
     }
 
     private fun AddTrackInHistory(track: Track){
@@ -339,12 +344,20 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         return Gson().fromJson(json, Array<Track>::class.java)
     }
 
-    private val handler = Handler(Looper.getMainLooper())
 
-    private val searchRunnable = Runnable { getTracks() }
 
     private fun searchDebounce() {
         handler.removeCallbacks(searchRunnable)
         handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
+
+    private fun clickDebounce() : Boolean{
+        val current = isClickAllowed
+        if(isClickAllowed){
+            isClickAllowed = false
+            handler.postDelayed({isClickAllowed = true}, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
 }
