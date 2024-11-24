@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,6 +17,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +50,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     private lateinit var refreshButton: Button
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var historyAdapter: TrackAdapter
+    private lateinit var progressBar: ProgressBar
 
     private val itunesBaseUrl = "https://itunes.apple.com"
 
@@ -76,11 +80,8 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
             correctPrefList = previousTrackList.toMutableList()
         }
 
-        for (log in correctPrefList) {
-            Log.v("Tag", log.toString())
-        }
-
         inputEditText = findViewById(R.id.searchEditText)
+        progressBar = findViewById(R.id.progressBar)
         clearButton = findViewById(R.id.clear_btn)
         clearHistoryButton = findViewById(R.id.clear_history_btn)
         backButton = findViewById(R.id.back_btn)
@@ -116,6 +117,8 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
                 emptySearchFrame.visibility = View.GONE
                 troubleWithConnectionFrame.visibility = View.GONE
+
+                searchDebounce()
 
                 val previousTrackList = sharedPreferences.getString(TRACKS_LIST_KEY, null)
                     ?.let { createTrackFromJson(it) }
@@ -221,6 +224,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     companion object {
         const val PRODUCT_AMOUNT = "PRODUCT_AMOUNT"
         const val AMOUNT_DEF = ""
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -232,37 +236,49 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
     }
 
     private fun getTracks() {
-        itunesService.search(inputEditText.text.toString()).enqueue(object :
-            Callback<TrackResponse> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(
-                call: Call<TrackResponse>,
-                response: Response<TrackResponse>
-            ) {
-                refreshTrackFrame()
+        if (inputEditText.text.isNotEmpty()) {
 
-                if (response.code() == 200) {
-                    trackList.clear()
-                    if (response.body()?.results?.isNotEmpty() == true) {
-                        trackList.addAll(response.body()?.results!!)
-                        trackAdapter.notifyDataSetChanged()
-                    }
-                    if (trackList.isEmpty()) {
-                        trackAdapter.notifyDataSetChanged()
-                        emptySearchFrame.visibility = View.VISIBLE
-                    }
-                } else {
+            recyclerView.visibility = View.GONE
+            troubleWithConnectionFrame.visibility = View.GONE
+            emptySearchFrame.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
 
+            itunesService.search(inputEditText.text.toString()).enqueue(object :
+                Callback<TrackResponse> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onResponse(
+                    call: Call<TrackResponse>,
+                    response: Response<TrackResponse>
+                ) {
+                    refreshTrackFrame()
+
+                    if (response.code() == 200) {
+                        trackList.clear()
+                        if (response.body()?.results?.isNotEmpty() == true) {
+                            progressBar.visibility = View.GONE
+                            recyclerView.visibility = View.VISIBLE
+                            trackList.addAll(response.body()?.results!!)
+                            trackAdapter.notifyDataSetChanged()
+                        }
+                        if (trackList.isEmpty()) {
+                            progressBar.visibility = View.GONE
+                            trackAdapter.notifyDataSetChanged()
+                            emptySearchFrame.visibility = View.VISIBLE
+                        }
+                    } else {
+
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                refreshTrackFrame()
-                trackAdapter.notifyDataSetChanged()
-                troubleWithConnectionFrame.visibility = View.VISIBLE
-            }
+                override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                    progressBar.visibility = View.GONE
+                    refreshTrackFrame()
+                    trackAdapter.notifyDataSetChanged()
+                    troubleWithConnectionFrame.visibility = View.VISIBLE
+                }
 
-        })
+            })
+        }
     }
 
     private fun refreshTrackFrame(){
@@ -321,5 +337,14 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
     private fun createTrackFromJson(json: String) : Array<Track>{
         return Gson().fromJson(json, Array<Track>::class.java)
+    }
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val searchRunnable = Runnable { getTracks() }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
 }
