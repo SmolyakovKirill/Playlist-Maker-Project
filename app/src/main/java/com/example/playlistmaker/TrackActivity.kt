@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,21 +30,27 @@ class TrackActivity : AppCompatActivity() {
         private const val STATE_PREPARED = 1
         private const val STATE_PLAYING = 2
         private const val STATE_PAUSED = 3
+        private const val DELAY = 1000L
     }
 
     private var playerState = STATE_DEFAULT
 
-    private lateinit var play: ImageButton
+    private lateinit var playButton: ImageButton
+    private lateinit var trackProgress: TextView
     private var mediaPlayer = MediaPlayer()
     private var url: String? = ""
+    private var mainThreadHandler: Handler? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audioplayer)
 
+        mainThreadHandler = Handler(Looper.getMainLooper())
+
         val backButton = findViewById<ImageButton>(R.id.track_back_btn)
-        play = findViewById(R.id.play_btn)
+        playButton = findViewById(R.id.play_btn)
+        trackProgress = findViewById(R.id.currentTrackProgess)
 
         val trackName = intent.getSerializableExtra("trackName")
         val groupName = intent.getSerializableExtra("artistName")
@@ -91,8 +99,9 @@ class TrackActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             onBackPressed()
         }
-        play.setOnClickListener {
+        playButton.setOnClickListener {
             playbackControl()
+            startTimer()
         }
     }
 
@@ -122,29 +131,56 @@ class TrackActivity : AppCompatActivity() {
         mediaPlayer.setDataSource(url)
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {
-            play.isEnabled = true
+            playButton.isEnabled = true
             playerState = STATE_PREPARED
         }
         mediaPlayer.setOnCompletionListener {
-            play.setImageResource(R.drawable.play_btn)
+            playButton.setImageResource(R.drawable.play_btn)
             playerState = STATE_PREPARED
         }
     }
 
     private fun startPlayer() {
         mediaPlayer.start()
-        play.setImageResource(R.drawable.pause_btn_dark)
+        playButton.setImageResource(R.drawable.pause_btn_dark)
         playerState = STATE_PLAYING
     }
 
     private fun pausePlayer() {
         mediaPlayer.pause()
-        play.setImageResource(R.drawable.play_btn)
+        playButton.setImageResource(R.drawable.play_btn)
         playerState = STATE_PAUSED
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish() // Завершаем текущее Activity
+    }
+
+    private fun startTimer() {
+        // Запоминаем время начала таймера
+        val startTime = System.currentTimeMillis()
+
+        // И отправляем задачу в Handler
+        // Число секунд из EditText'а переводим в миллисекунды
+        mainThreadHandler?.post(
+            createUpdateTrackTimer(startTime)
+        )
+    }
+
+    private fun createUpdateTrackTimer(startTime: Long): Runnable{
+        return object : Runnable{
+            @SuppressLint("DefaultLocale")
+            override fun run() {
+                val elapsedTime = System.currentTimeMillis() - startTime
+                val remainingTime = elapsedTime + 1000L
+
+                if(remainingTime > 30){
+                    val seconds = remainingTime / DELAY
+                    trackProgress.text = String.format("%d:%02d", seconds / 60, seconds % 60)
+                    mainThreadHandler?.postDelayed(this, DELAY)
+                }
+            }
+        }
     }
 }
