@@ -312,6 +312,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
             trackIntent.putExtra("primaryGenreName", track.primaryGenreName)
             trackIntent.putExtra("country", track.country)
             trackIntent.putExtra("icon", track.getCoverArtwork())
+            trackIntent.putExtra("previewUrl", track.previewUrl)
             startActivity(trackIntent)
         }
     }
