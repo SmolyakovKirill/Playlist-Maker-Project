@@ -32,11 +32,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val PRACTICUM_EXAMPLE_PREFERENCES = "user_preferences"
 const val TRACKS_LIST_KEY = "key_for_tracks_list"
+const val TRACK_NAME = "track_name"
+const val TRACK_DURATION = "track_duration"
+const val ARTIST_NAME = "artist_name"
+const val COLLECTION_NAME = "collection_name"
+const val RELEASE_DATE = "release_date"
+const val PRIMARY_GENRE_NAME = "primary_genre_name"
+const val COUNTRY = "country"
+const val ICON = "icon"
+const val PREVIEW_URL = "preview_url"
+
 
 class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
     private var countValue: String = ""
-    private var trackCounter: Int = 0
 
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
@@ -304,15 +313,15 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         if (clickDebounce()) {
             AddTrackInHistory(track)
             val trackIntent = Intent(this, TrackActivity::class.java)
-            trackIntent.putExtra("trackName", track.trackName)
-            trackIntent.putExtra("trackDuration", track.trackTimeMillis)
-            trackIntent.putExtra("artistName", track.artistName)
-            trackIntent.putExtra("collectionName", track.collectionName)
-            trackIntent.putExtra("releaseDate", track.releaseDate)
-            trackIntent.putExtra("primaryGenreName", track.primaryGenreName)
-            trackIntent.putExtra("country", track.country)
-            trackIntent.putExtra("icon", track.getCoverArtwork())
-            trackIntent.putExtra("previewUrl", track.previewUrl)
+            trackIntent.putExtra(TRACK_NAME, track.trackName)
+            trackIntent.putExtra(TRACK_DURATION, track.trackTimeMillis)
+            trackIntent.putExtra(ARTIST_NAME, track.artistName)
+            trackIntent.putExtra(COLLECTION_NAME, track.collectionName)
+            trackIntent.putExtra(RELEASE_DATE, track.releaseDate)
+            trackIntent.putExtra(PRIMARY_GENRE_NAME, track.primaryGenreName)
+            trackIntent.putExtra(COUNTRY, track.country)
+            trackIntent.putExtra(ICON, track.getCoverArtwork())
+            trackIntent.putExtra(PREVIEW_URL, track.previewUrl)
             startActivity(trackIntent)
         }
     }

@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 class TrackActivity : AppCompatActivity() {
 
     private lateinit var songNameTextView: TextView
@@ -52,15 +53,15 @@ class TrackActivity : AppCompatActivity() {
         playButton = findViewById(R.id.play_btn)
         trackProgress = findViewById(R.id.currentTrackProgess)
 
-        val trackName = intent.getSerializableExtra("trackName")
-        val groupName = intent.getSerializableExtra("artistName")
-        val duration = intent.getSerializableExtra("trackDuration")
-        val collectionName = intent.getSerializableExtra("collectionName")
-        val releaseDate = intent.getSerializableExtra("releaseDate")
-        val primaryGenreName = intent.getSerializableExtra("primaryGenreName")
-        val country = intent.getSerializableExtra("country")
-        val icon = intent.getSerializableExtra("icon")
-        url = intent.getSerializableExtra("previewUrl").toString()
+        val trackName = intent.getSerializableExtra(TRACK_NAME)
+        val groupName = intent.getSerializableExtra(ARTIST_NAME)
+        val duration = intent.getSerializableExtra(TRACK_DURATION)
+        val collectionName = intent.getSerializableExtra(COLLECTION_NAME)
+        val releaseDate = intent.getSerializableExtra(RELEASE_DATE)
+        val primaryGenreName = intent.getSerializableExtra(PRIMARY_GENRE_NAME)
+        val country = intent.getSerializableExtra(COUNTRY)
+        val icon = intent.getSerializableExtra(ICON)
+        url = intent.getSerializableExtra(PREVIEW_URL).toString()
 
         preparePlayer()
 
@@ -165,13 +166,21 @@ class TrackActivity : AppCompatActivity() {
         return object : Runnable {
             @SuppressLint("DefaultLocale")
             override fun run() {
-                when(playerState) {
+                when (playerState) {
                     STATE_PLAYING -> {
-                        trackProgress.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
+                        trackProgress.text = SimpleDateFormat(
+                            "mm:ss", Locale.getDefault()
+                        ).format(mediaPlayer.currentPosition)
                         mainThreadHandler?.postDelayed(this, DELAY)
                     }
-                    STATE_PREPARED, STATE_PAUSED -> {
+
+                    STATE_PAUSED -> {
                         mainThreadHandler?.removeCallbacks(this)
+                    }
+
+                    STATE_PREPARED -> {
+                        trackProgress.text =
+                            SimpleDateFormat("mm:ss", Locale.getDefault()).format(0)
                     }
                 }
 
