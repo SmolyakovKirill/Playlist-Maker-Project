@@ -31,7 +31,6 @@ class TrackActivity : AppCompatActivity() {
         private const val STATE_PLAYING = 2
         private const val STATE_PAUSED = 3
         private const val DELAY = 1000L
-        private const val DURATION = 31000L
     }
 
     private var playerState = STATE_DEFAULT
@@ -39,7 +38,6 @@ class TrackActivity : AppCompatActivity() {
     private lateinit var playButton: ImageButton
     private lateinit var trackProgress: TextView
     private var mediaPlayer = MediaPlayer()
-    private var currentProgress: Long = 0
     private var url: String? = ""
     private var mainThreadHandler: Handler? = null
 
@@ -92,11 +90,8 @@ class TrackActivity : AppCompatActivity() {
         countryTextView.text = country.toString()
 
 
-        Glide.with(baseContext)
-            .load(icon)
-            .placeholder(R.drawable.track_placeholder)
-            .transform(RoundedCorners(10))
-            .into(trackIcon)
+        Glide.with(baseContext).load(icon).placeholder(R.drawable.track_placeholder)
+            .transform(RoundedCorners(10)).into(trackIcon)
 
         backButton.setOnClickListener {
             onBackPressed()
@@ -161,38 +156,25 @@ class TrackActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
-        if(currentProgress == 0L)
-            currentProgress = System.currentTimeMillis()
-
         mainThreadHandler?.post(
-            createUpdateTrackTimer(currentProgress)
+            createUpdateTrackTimer()
         )
     }
 
-    private fun createUpdateTrackTimer(startTime: Long): Runnable {
+    private fun createUpdateTrackTimer(): Runnable {
         return object : Runnable {
             @SuppressLint("DefaultLocale")
             override fun run() {
-
-                when (playerState) {
-                    STATE_PREPARED -> trackProgress.text = String.format("%d:%02d", 0, 0)
-                    STATE_DEFAULT -> trackProgress.text = String.format("%d:%02d", 0, 0)
-                    else -> {
-                        val elapsedTime = System.currentTimeMillis() - startTime
-                        if (elapsedTime <= DURATION && playerState == STATE_PLAYING) {
-                            val seconds = elapsedTime / DELAY
-                            currentProgress = seconds
-                            trackProgress.text =
-                                String.format("%d:%02d", seconds / 60, seconds % 60)
-                            mainThreadHandler?.postDelayed(this, DELAY)
-                        }
-                        else{
-                            currentProgress = 0L
-                        }
-                        if (playerState == STATE_PAUSED)
-                            trackProgress.text = String.format("%d:%02d", currentProgress / 60, currentProgress % 60)
+                when(playerState) {
+                    STATE_PLAYING -> {
+                        trackProgress.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
+                        mainThreadHandler?.postDelayed(this, DELAY)
+                    }
+                    STATE_PREPARED, STATE_PAUSED -> {
+                        mainThreadHandler?.removeCallbacks(this)
                     }
                 }
+
             }
         }
     }
