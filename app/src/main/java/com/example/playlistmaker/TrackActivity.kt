@@ -110,6 +110,7 @@ class TrackActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        mainThreadHandler?.removeCallbacks(createUpdateTrackTimer())
         mediaPlayer.release()
     }
 

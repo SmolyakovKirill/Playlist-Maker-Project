@@ -5,7 +5,7 @@
     <dimen name="buttonTextSize">22sp</dimen>
     <dimen name="cornerRadius">20sp</dimen>
     <integer name="buttonTextWeight">500</integer>
-    <integer name="maxAlbumLenght">30</integer>
+    <integer name="maxAlbumLenght">35</integer>
     <integer name="textViewTextWeight">400</integer>
     <integer name="trackNameMaxLength">40</integer>
     <integer name="trackNameMaxLines">1</integer>

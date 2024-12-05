@@ -311,7 +311,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
 
     override fun onClick(track: Track) {
         if (clickDebounce()) {
-            AddTrackInHistory(track)
+            addTrackInHistory(track)
             val trackIntent = Intent(this, TrackActivity::class.java)
             trackIntent.putExtra(TRACK_NAME, track.trackName)
             trackIntent.putExtra(TRACK_DURATION, track.trackTimeMillis)
@@ -326,7 +326,7 @@ class SearchActivity : AppCompatActivity(), TrackAdapter.Listener {
         }
     }
 
-    private fun AddTrackInHistory(track: Track){
+    private fun addTrackInHistory(track: Track){
         val sharedPreferences = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
         val previousTrackList = sharedPreferences.getString(TRACKS_LIST_KEY, null)
             ?.let { createTrackFromJson(it) }
