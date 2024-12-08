@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.ui.tracks
 
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
@@ -11,6 +11,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker.ui.search.ARTIST_NAME
+import com.example.playlistmaker.ui.search.COLLECTION_NAME
+import com.example.playlistmaker.ui.search.COUNTRY
+import com.example.playlistmaker.ui.search.ICON
+import com.example.playlistmaker.ui.search.PREVIEW_URL
+import com.example.playlistmaker.ui.search.PRIMARY_GENRE_NAME
+import com.example.playlistmaker.R
+import com.example.playlistmaker.ui.search.RELEASE_DATE
+import com.example.playlistmaker.ui.search.TRACK_DURATION
+import com.example.playlistmaker.ui.search.TRACK_NAME
 import java.text.SimpleDateFormat
 import java.util.Locale
 

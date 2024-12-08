@@ -1,15 +1,12 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.ui.search
 
-import android.R.array
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -18,10 +15,15 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.R
+import com.example.playlistmaker.data.dto.TrackResponse
+import com.example.playlistmaker.data.network.ITunesApi
+import com.example.playlistmaker.domain.models.Track
+import com.example.playlistmaker.ui.tracks.TrackActivity
+import com.example.playlistmaker.ui.tracks.TrackAdapter
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,11 +1,6 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.data.dto
 
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.Date
-import java.util.Locale
-
-data class Track(
+data class TrackDto(
     val trackName: String = "",
     val artistName: String = "",
     val trackTimeMillis: Long = 0,
